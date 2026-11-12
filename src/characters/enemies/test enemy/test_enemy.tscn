@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://cy58siibwvrrp"]
+
+[ext_resource type="Script" uid="uid://c7jjm4da8ixvt" path="res://src/characters/enemies/test enemy/test_enemy.gd" id="1_qyr84"]
+[ext_resource type="Texture2D" uid="uid://c75jrp57x4wfs" path="res://assets/icon.svg" id="2_1pa7o"]
+[ext_resource type="Shader" uid="uid://coluplyeorkar" path="res://src/resources/shaders/blink.gdshader" id="2_upe5w"]
+[ext_resource type="Script" uid="uid://c132ldhrnabpv" path="res://src/scripts/components/hitbox.gd" id="3_7yglh"]
+[ext_resource type="Script" uid="uid://b86uj4qxpmgak" path="res://src/scripts/components/health_component.gd" id="3_quq4u"]
+[ext_resource type="Script" uid="uid://wufyj8h1dgpm" path="res://src/scripts/components/movement_component.gd" id="4_7yglh"]
+[ext_resource type="Script" uid="uid://b03xiaopsllhc" path="res://src/scripts/components/hurtbox.gd" id="4_qyr84"]
+[ext_resource type="Script" uid="uid://bj6oclaekwfl0" path="res://src/scripts/components/sprite_controller.gd" id="6_u21e6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qyr84"]
+resource_local_to_scene = true
+shader = ExtResource("2_upe5w")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqj2n"]
+size = Vector2(14, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgh54"]
+size = Vector2(14, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_767g6"]
+size = Vector2(14, 39)
+
+[node name="TestEnemy" type="CharacterBody2D" unique_id=1590151284 node_paths=PackedStringArray("health_component", "movement_component", "sprite_controller", "hitbox")]
+collision_layer = 0
+script = ExtResource("1_qyr84")
+health_component = NodePath("Components/HealthComponent")
+movement_component = NodePath("Components/MovementComponent")
+sprite_controller = NodePath("Components/SpriteController")
+hitbox = NodePath("Hitboxes/Hitbox")
+metadata/_custom_type_script = "uid://cfa2opkiyn84a"
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1577598276]
+modulate = Color(0.99999994, 0.16017178, 0.115603484, 1)
+material = SubResource("ShaderMaterial_qyr84")
+position = Vector2(0, -20.000002)
+scale = Vector2(0.1875, 0.3125)
+texture = ExtResource("2_1pa7o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1243388942]
+position = Vector2(0, -19.5)
+shape = SubResource("RectangleShape2D_sqj2n")
+
+[node name="Hitboxes" type="Node2D" parent="." unique_id=1964387693]
+
+[node name="Hitbox" type="Area2D" parent="Hitboxes" unique_id=945200463 node_paths=PackedStringArray("body", "collision")]
+script = ExtResource("3_7yglh")
+body = NodePath("../..")
+collision = NodePath("CollisionShape2D")
+metadata/_custom_type_script = "uid://c132ldhrnabpv"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Hitbox" unique_id=1341148177]
+position = Vector2(0, -19.5)
+shape = SubResource("RectangleShape2D_cgh54")
+
+[node name="Hurtbox" type="Area2D" parent="Hitboxes" unique_id=1731580146 node_paths=PackedStringArray("body", "collision", "health_component")]
+script = ExtResource("4_qyr84")
+body = NodePath("../..")
+collision = NodePath("CollisionShape2D")
+health_component = NodePath("../../Components/HealthComponent")
+metadata/_custom_type_script = "uid://b03xiaopsllhc"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Hurtbox" unique_id=1241887622]
+position = Vector2(0, -19.5)
+shape = SubResource("RectangleShape2D_767g6")
+
+[node name="Components" type="Node" parent="." unique_id=1529545865]
+
+[node name="HealthComponent" type="Node" parent="Components" unique_id=341486610]
+script = ExtResource("3_quq4u")
+metadata/_custom_type_script = "uid://b86uj4qxpmgak"
+
+[node name="MovementComponent" type="Node" parent="Components" unique_id=446134345 node_paths=PackedStringArray("body")]
+script = ExtResource("4_7yglh")
+body = NodePath("../..")
+metadata/_custom_type_script = "uid://wufyj8h1dgpm"
+
+[node name="SpriteController" type="Node" parent="Components" unique_id=2064714191 node_paths=PackedStringArray("sprite")]
+script = ExtResource("6_u21e6")
+sprite = NodePath("../../Sprite")
+metadata/_custom_type_script = "uid://bj6oclaekwfl0"

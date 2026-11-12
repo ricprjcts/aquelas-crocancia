@@ -1,0 +1,105 @@
+[gd_scene format=4 uid="uid://dxluutpvviudl"]
+
+[ext_resource type="Script" uid="uid://bqj8h8cm3bknw" path="res://src/levels/base_level.gd" id="1_esx25"]
+[ext_resource type="TileSet" uid="uid://bui3pqtx18sq2" path="res://src/resources/tilesets/testing_tileset.tres" id="2_or10o"]
+[ext_resource type="Script" uid="uid://co3d555nrg2uw" path="res://src/scripts/components/transitions_gate.gd" id="3_o0w18"]
+[ext_resource type="PackedScene" uid="uid://c1fd22u8l3gc7" path="res://src/player/spawn/player_spawn.tscn" id="3_s8fiq"]
+[ext_resource type="PackedScene" uid="uid://dl26cqo1ajko8" path="res://src/player/camera/player_camera.tscn" id="4_o0w18"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqj2n"]
+size = Vector2(16, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgh54"]
+size = Vector2(32, 8)
+
+[node name="TestingTransition" type="Node2D" unique_id=1440748362 node_paths=PackedStringArray("default_spawn", "player_camera", "transitions")]
+script = ExtResource("1_esx25")
+default_spawn = NodePath("Player/PlayerSpawn")
+player_camera = NodePath("Player/PlayerCamera")
+transitions = NodePath("Transitions")
+metadata/_custom_type_script = "uid://bqj8h8cm3bknw"
+
+[node name="Map" type="Node2D" parent="." unique_id=1551315540]
+
+[node name="Ground" type="TileMapLayer" parent="Map" unique_id=728940277]
+tile_map_data = PackedByteArray("AAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD5/wAAAAAAAAAAAAD5/wEAAAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAAAAAAAAAAAGAPz/AAAAAAAAAAAHAPz/AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAD5//z/AAAAAAAAAAD4//z/AAAAAAAAAAD7/wAAAAAAAAAAAAD7/wEAAAAAAAAAAAD6//v/AAAAAAAAAAD7//v/AAAAAAAAAAD8//v/AAAAAAAAAAD9//v/AAAAAAAAAAD+//v/AAAAAAAAAAD///v/AAAAAAAAAAACAPv/AAAAAAAAAAADAPv/AAAAAAAAAAAEAPv/AAAAAAAAAAAFAPv/AAAAAAAAAAAGAPv/AAAAAAAAAAAHAPv/AAAAAAAAAAD4//v/AAAAAAAAAAD5//v/AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD3/wAAAAAAAAAAAAD3/wEAAAAAAAAAAAD2//v/AAAAAAAAAAD2//z/AAAAAAAAAAD3//v/AAAAAAAAAAD3//z/AAAAAAAAAAAIAPv/AAAAAAAAAAAIAPz/AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPz/AAAAAAAAAAAJAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAA=")
+tile_set = ExtResource("2_or10o")
+
+[node name="Objects" type="Node2D" parent="." unique_id=869415576]
+
+[node name="Chests" type="Node2D" parent="Objects" unique_id=359430623]
+
+[node name="Transitions" type="Node2D" parent="." unique_id=195754438]
+
+[node name="TransitionGate" type="Area2D" parent="Transitions" unique_id=665324839 node_paths=PackedStringArray("spawn")]
+position = Vector2(112, 0)
+script = ExtResource("3_o0w18")
+destination_scene_uid = "uid://wls1oxjtglsb"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(1, 0)
+coming_from = Vector2i(-1, 0)
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate" unique_id=1473015113]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_sqj2n")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate" unique_id=1791472612]
+position = Vector2(-19, 0)
+
+[node name="TransitionGate2" type="Area2D" parent="Transitions" unique_id=717323511 node_paths=PackedStringArray("spawn")]
+position = Vector2(-112, 0)
+script = ExtResource("3_o0w18")
+destination_scene_uid = "uid://wls1oxjtglsb"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(-1, 0)
+coming_from = Vector2i(1, 0)
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate2" unique_id=387024575]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_sqj2n")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate2" unique_id=33767685]
+position = Vector2(19, 0)
+
+[node name="TransitionGate3" type="Area2D" parent="Transitions" unique_id=1034568720 node_paths=PackedStringArray("spawn")]
+position = Vector2(-64, 8)
+script = ExtResource("3_o0w18")
+destination_scene_uid = "uid://wls1oxjtglsb"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(0, 1)
+coming_from = Vector2i(0, -1)
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate3" unique_id=2135203910]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_cgh54")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate3" unique_id=1699239764]
+position = Vector2(16, -5)
+
+[node name="TransitionGate4" type="Area2D" parent="Transitions" unique_id=577791316 node_paths=PackedStringArray("spawn")]
+position = Vector2(0, -72)
+script = ExtResource("3_o0w18")
+destination_scene_uid = "uid://wls1oxjtglsb"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(0, -1)
+coming_from = Vector2i(0, 1)
+up_direction = -1.0
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate4" unique_id=609250080]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_cgh54")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate4" unique_id=888679485]
+position = Vector2(17, 34)
+
+[node name="Entities" type="Node2D" parent="." unique_id=554017260]
+
+[node name="Player" type="Node2D" parent="." unique_id=327481113]
+
+[node name="PlayerSpawn" parent="Player" unique_id=2126367169 instance=ExtResource("3_s8fiq")]
+
+[node name="PlayerCamera" parent="Player" unique_id=1424985965 instance=ExtResource("4_o0w18")]

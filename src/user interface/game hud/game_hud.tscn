@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bmmkahla2j6q8"]
+
+[ext_resource type="Script" uid="uid://ccnmhxm8nhmp5" path="res://src/user interface/game hud/game_hud.gd" id="1_cm6lx"]
+[ext_resource type="PackedScene" uid="uid://4fvcbko1qcvb" path="res://src/user interface/game hud/elements/health_hud.tscn" id="1_f5mdk"]
+[ext_resource type="PackedScene" uid="uid://1v1o5a4fr27v" path="res://src/user interface/game hud/elements/money_hud.tscn" id="2_p7im4"]
+
+[node name="GameHud" type="Control" unique_id=83393153 node_paths=PackedStringArray("health_label", "money_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cm6lx")
+health_label = NodePath("HealthContainer/Health/MarginContainer/HealthLabel")
+money_label = NodePath("MoneyContainer/Money/MarginContainer/MoneyLabel")
+
+[node name="HealthContainer" type="MarginContainer" parent="." unique_id=536032403]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_bottom = 312
+
+[node name="Health" parent="HealthContainer" unique_id=1849436979 instance=ExtResource("1_f5mdk")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MoneyContainer" type="MarginContainer" parent="." unique_id=2138114040]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_bottom = 248
+
+[node name="Money" parent="MoneyContainer" unique_id=110878429 instance=ExtResource("2_p7im4")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[editable path="HealthContainer/Health"]
+[editable path="MoneyContainer/Money"]

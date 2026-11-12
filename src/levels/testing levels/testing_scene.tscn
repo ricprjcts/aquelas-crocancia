@@ -1,0 +1,114 @@
+[gd_scene format=4 uid="uid://wls1oxjtglsb"]
+
+[ext_resource type="Script" uid="uid://bqj8h8cm3bknw" path="res://src/levels/base_level.gd" id="1_kx2wh"]
+[ext_resource type="TileSet" uid="uid://bui3pqtx18sq2" path="res://src/resources/tilesets/testing_tileset.tres" id="2_u6ots"]
+[ext_resource type="Script" uid="uid://co3d555nrg2uw" path="res://src/scripts/components/transitions_gate.gd" id="3_4w84q"]
+[ext_resource type="PackedScene" uid="uid://c1fd22u8l3gc7" path="res://src/player/spawn/player_spawn.tscn" id="3_6rau6"]
+[ext_resource type="PackedScene" uid="uid://bww4bisu75616" path="res://src/characters/spawner/entity_spawner.tscn" id="3_u6ots"]
+[ext_resource type="PackedScene" uid="uid://dl26cqo1ajko8" path="res://src/player/camera/player_camera.tscn" id="4_i5vhn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqj2n"]
+size = Vector2(18, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgh54"]
+size = Vector2(18, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_767g6"]
+size = Vector2(32, 10)
+
+[node name="TestingScene" type="Node2D" unique_id=2017639283 node_paths=PackedStringArray("default_spawn", "player_camera", "transitions")]
+script = ExtResource("1_kx2wh")
+default_spawn = NodePath("Player/PlayerSpawn")
+player_camera = NodePath("Player/PlayerCamera")
+transitions = NodePath("Transitions")
+metadata/_custom_type_script = "uid://bqj8h8cm3bknw"
+
+[node name="Map" type="Node2D" parent="." unique_id=907570124]
+
+[node name="Ground" type="TileMapLayer" parent="Map" unique_id=1272316248]
+tile_map_data = PackedByteArray("AAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD5/wAAAAAAAAAAAAD5/wEAAAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD7/wAAAAAAAAAAAAD7/wEAAAAAAAAAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAAAAAD9/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAD4//z/AAAAAAAAAAD5//z/AAAAAAAAAAAGAPz/AAAAAAAAAAAHAPz/AAAAAAAAAAD4//v/AAAAAAAAAAD5//v/AAAAAAAAAAD6//v/AAAAAAAAAAD7//v/AAAAAAAAAAD+//v/AAAAAAAAAAD///v/AAAAAAAAAAAAAPv/AAAAAAAAAAABAPv/AAAAAAAAAAACAPv/AAAAAAAAAAADAPv/AAAAAAAAAAAEAPv/AAAAAAAAAAAFAPv/AAAAAAAAAAAGAPv/AAAAAAAAAAAHAPv/AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD3/wAAAAAAAAAAAAD3/wEAAAAAAAAAAAD2//v/AAAAAAAAAAD2//z/AAAAAAAAAAD3//v/AAAAAAAAAAD3//z/AAAAAAAAAAAIAPv/AAAAAAAAAAAIAPz/AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPz/AAAAAAAAAAAJAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAA=")
+tile_set = ExtResource("2_u6ots")
+
+[node name="Objects" type="Node2D" parent="." unique_id=2035382677]
+
+[node name="Chests" type="Node2D" parent="Objects" unique_id=424583494]
+
+[node name="Transitions" type="Node2D" parent="." unique_id=1363600388]
+
+[node name="TransitionGate" type="Area2D" parent="Transitions" unique_id=2095298394 node_paths=PackedStringArray("spawn")]
+position = Vector2(-112, 0)
+script = ExtResource("3_4w84q")
+destination_scene_uid = "uid://dxluutpvviudl"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(-1, 0)
+coming_from = Vector2i(1, 0)
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate" unique_id=867938923]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_sqj2n")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate" unique_id=841575092]
+position = Vector2(20, 0)
+
+[node name="TransitionGate2" type="Area2D" parent="Transitions" unique_id=1230680415 node_paths=PackedStringArray("spawn")]
+position = Vector2(112, 0)
+script = ExtResource("3_4w84q")
+destination_scene_uid = "uid://dxluutpvviudl"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(1, 0)
+coming_from = Vector2i(-1, 0)
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate2" unique_id=191048131]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_cgh54")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate2" unique_id=342716374]
+position = Vector2(-20, 0)
+
+[node name="TransitionGate3" type="Area2D" parent="Transitions" unique_id=1028095120 node_paths=PackedStringArray("spawn")]
+position = Vector2(-64, -72)
+script = ExtResource("3_4w84q")
+destination_scene_uid = "uid://dxluutpvviudl"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(0, -1)
+coming_from = Vector2i(0, 1)
+up_direction = 1.0
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate3" unique_id=55665680]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_767g6")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate3" unique_id=1261308065]
+position = Vector2(16, 35)
+
+[node name="TransitionGate4" type="Area2D" parent="Transitions" unique_id=1896140052 node_paths=PackedStringArray("spawn")]
+position = Vector2(32, 8)
+script = ExtResource("3_4w84q")
+destination_scene_uid = "uid://dxluutpvviudl"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(0, 1)
+coming_from = Vector2i(0, -1)
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate4" unique_id=1301429043]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_767g6")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate4" unique_id=329829283]
+position = Vector2(16, -6)
+
+[node name="Entities" type="Node2D" parent="." unique_id=361792843]
+
+[node name="EntitySpawner" parent="Entities" unique_id=1728023528 instance=ExtResource("3_u6ots")]
+position = Vector2(72, 0)
+enabled = false
+scene_to_load = "uid://coc2eb0hcep4g"
+
+[node name="Player" type="Node2D" parent="." unique_id=667127050]
+
+[node name="PlayerSpawn" parent="Player" unique_id=2126367169 instance=ExtResource("3_6rau6")]
+
+[node name="PlayerCamera" parent="Player" unique_id=1424985965 instance=ExtResource("4_i5vhn")]

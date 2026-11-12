@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://c61lhetvsfuj0"]
+
+[ext_resource type="Script" uid="uid://x1o256hybft1" path="res://src/core/debug/debug_overlay.gd" id="1_urrxh"]
+
+[node name="DebugOverlay" type="Control" unique_id=1413759545]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_urrxh")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=215124899]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1382755707]
+layout_mode = 2
+
+[node name="FPSLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=2050497115]
+unique_name_in_owner = true
+layout_mode = 2
+text = "FPS:"
+horizontal_alignment = 2

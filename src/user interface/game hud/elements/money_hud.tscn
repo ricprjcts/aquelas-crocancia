@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://1v1o5a4fr27v"]
+
+[node name="MoneyHud" type="Control" unique_id=110878429]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1054420175]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MoneyLabel" type="Label" parent="MarginContainer" unique_id=2047034378]
+layout_mode = 2
+text = "Money: "

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dl26cqo1ajko8"]
+
+[ext_resource type="Script" uid="uid://bncapqvo8sel6" path="res://src/player/camera/player_camera.gd" id="1_a6oue"]
+
+[node name="PlayerCamera" type="Camera2D" unique_id=1424985965]
+offset = Vector2(0, -16)
+zoom = Vector2(1.75, 1.75)
+script = ExtResource("1_a6oue")
+look_ahead_offset = 8.0
+look_ahead_weight = 0.1

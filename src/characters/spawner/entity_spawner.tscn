@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bww4bisu75616"]
+
+[ext_resource type="Script" uid="uid://d3rsy82fy10fj" path="res://src/characters/spawner/entity_spawner.gd" id="1_8hl4b"]
+
+[node name="EntitySpawner" type="Marker2D" unique_id=1728023528]
+script = ExtResource("1_8hl4b")
+
+[node name="ScreenNotifier" type="VisibleOnScreenNotifier2D" parent="." unique_id=231417566]
+
+[connection signal="screen_entered" from="ScreenNotifier" to="." method="_on_screen_notifier_screen_entered"]
