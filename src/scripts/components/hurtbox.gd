@@ -5,6 +5,7 @@ class_name Hurtbox
 @export var collision: CollisionShape2D
 
 @export var health_component: HealthComponent
+@export var invincibility_time: float = 1.0
 
 func _ready() -> void:
 	_set_collision()
@@ -17,6 +18,7 @@ func _on_area_entered(area: Area2D) -> void:
 			return
 		
 		health_component.take_damage(hitbox.damage)
+		health_component.set_invincibility(invincibility_time)
 		_apply_knockback(hitbox.body.global_position, hitbox.knockback_force)
 
 func _apply_knockback(souce_position: Vector2, force: Vector2) -> void:

@@ -4,13 +4,13 @@
 [ext_resource type="TileSet" uid="uid://bui3pqtx18sq2" path="res://src/resources/tilesets/testing_tileset.tres" id="2_or10o"]
 [ext_resource type="Script" uid="uid://co3d555nrg2uw" path="res://src/scripts/components/transitions_gate.gd" id="3_o0w18"]
 [ext_resource type="PackedScene" uid="uid://c1fd22u8l3gc7" path="res://src/player/spawn/player_spawn.tscn" id="3_s8fiq"]
-[ext_resource type="PackedScene" uid="uid://dl26cqo1ajko8" path="res://src/player/camera/player_camera.tscn" id="4_o0w18"]
+[ext_resource type="PackedScene" uid="uid://dl26cqo1ajko8" path="res://src/player/camera/player camera/player_camera.tscn" id="4_o0w18"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqj2n"]
-size = Vector2(16, 48)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_767g6"]
+size = Vector2(20, 48)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgh54"]
-size = Vector2(32, 8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36o7u"]
+size = Vector2(48, 20)
 
 [node name="TestingTransition" type="Node2D" unique_id=1440748362 node_paths=PackedStringArray("default_spawn", "player_camera", "transitions")]
 script = ExtResource("1_esx25")
@@ -22,7 +22,7 @@ metadata/_custom_type_script = "uid://bqj8h8cm3bknw"
 [node name="Map" type="Node2D" parent="." unique_id=1551315540]
 
 [node name="Ground" type="TileMapLayer" parent="Map" unique_id=728940277]
-tile_map_data = PackedByteArray("AAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD5/wAAAAAAAAAAAAD5/wEAAAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAAAAAAAAAAAGAPz/AAAAAAAAAAAHAPz/AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAD5//z/AAAAAAAAAAD4//z/AAAAAAAAAAD7/wAAAAAAAAAAAAD7/wEAAAAAAAAAAAD6//v/AAAAAAAAAAD7//v/AAAAAAAAAAD8//v/AAAAAAAAAAD9//v/AAAAAAAAAAD+//v/AAAAAAAAAAD///v/AAAAAAAAAAACAPv/AAAAAAAAAAADAPv/AAAAAAAAAAAEAPv/AAAAAAAAAAAFAPv/AAAAAAAAAAAGAPv/AAAAAAAAAAAHAPv/AAAAAAAAAAD4//v/AAAAAAAAAAD5//v/AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD3/wAAAAAAAAAAAAD3/wEAAAAAAAAAAAD2//v/AAAAAAAAAAD2//z/AAAAAAAAAAD3//v/AAAAAAAAAAD3//z/AAAAAAAAAAAIAPv/AAAAAAAAAAAIAPz/AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPz/AAAAAAAAAAAJAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AADy/wAAAAAAAAAAAADy/wEAAAAAAAAAAADz/wAAAAAAAAAAAADz/wEAAAAAAAAAAAD0/wAAAAAAAAAAAAD0/wEAAAAAAAAAAAD1/wAAAAAAAAAAAAD1/wEAAAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD3/wAAAAAAAAAAAAD3/wEAAAAAAAAAAAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD5/wAAAAAAAAAAAAD5/wEAAAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD7/wAAAAAAAAAAAAD7/wEAAAAAAAAAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAAAAAD9/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAAKAAAAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAAAAAAAAAAAAAALAAEAAAAAAAAAAAAMAAAAAAAAAAAAAAAMAAEAAAAAAAAAAAANAAAAAAAAAAAAAAANAAEAAAAAAAAAAADy//j/AAAAAAAAAADy//n/AAAAAAAAAADy//r/AAAAAAAAAADy//v/AAAAAAAAAADy//z/AAAAAAAAAADz//j/AAAAAAAAAADz//n/AAAAAAAAAADz//r/AAAAAAAAAADz//v/AAAAAAAAAADz//z/AAAAAAAAAAD0//j/AAAAAAAAAAD0//n/AAAAAAAAAAD0//r/AAAAAAAAAAD0//v/AAAAAAAAAAD0//z/AAAAAAAAAAALAPj/AAAAAAAAAAALAPn/AAAAAAAAAAALAPr/AAAAAAAAAAALAPv/AAAAAAAAAAALAPz/AAAAAAAAAAAMAPj/AAAAAAAAAAAMAPn/AAAAAAAAAAAMAPr/AAAAAAAAAAAMAPv/AAAAAAAAAAAMAPz/AAAAAAAAAAANAPj/AAAAAAAAAAANAPn/AAAAAAAAAAANAPr/AAAAAAAAAAANAPv/AAAAAAAAAAANAPz/AAAAAAAAAADy//P/AAAAAAAAAADy//T/AAAAAAAAAADz//P/AAAAAAAAAADz//T/AAAAAAAAAAD0//P/AAAAAAAAAAD0//T/AAAAAAAAAAD1//P/AAAAAAAAAAD1//T/AAAAAAAAAAD2//P/AAAAAAAAAAD2//T/AAAAAAAAAAD3//P/AAAAAAAAAAD3//T/AAAAAAAAAAD4//P/AAAAAAAAAAD4//T/AAAAAAAAAAD5//P/AAAAAAAAAAD5//T/AAAAAAAAAAD6//P/AAAAAAAAAAD6//T/AAAAAAAAAAD7//P/AAAAAAAAAAD7//T/AAAAAAAAAAD8//P/AAAAAAAAAAD8//T/AAAAAAAAAAD9//P/AAAAAAAAAAD9//T/AAAAAAAAAAABAPP/AAAAAAAAAAABAPT/AAAAAAAAAAACAPP/AAAAAAAAAAACAPT/AAAAAAAAAAADAPP/AAAAAAAAAAADAPT/AAAAAAAAAAAEAPP/AAAAAAAAAAAEAPT/AAAAAAAAAAAFAPP/AAAAAAAAAAAFAPT/AAAAAAAAAAAGAPP/AAAAAAAAAAAGAPT/AAAAAAAAAAAHAPP/AAAAAAAAAAAHAPT/AAAAAAAAAAAIAPP/AAAAAAAAAAAIAPT/AAAAAAAAAAAJAPP/AAAAAAAAAAAJAPT/AAAAAAAAAAAKAPP/AAAAAAAAAAAKAPT/AAAAAAAAAAALAPP/AAAAAAAAAAALAPT/AAAAAAAAAAAMAPP/AAAAAAAAAAAMAPT/AAAAAAAAAAANAPP/AAAAAAAAAAANAPT/AAAAAAAAAAD1//j/AAAAAAAAAAD1//n/AAAAAAAAAAD1//r/AAAAAAAAAAD1//v/AAAAAAAAAAD1//z/AAAAAAAAAAD2//j/AAAAAAAAAAD2//n/AAAAAAAAAAD2//r/AAAAAAAAAAD2//v/AAAAAAAAAAD2//z/AAAAAAAAAAAJAPj/AAAAAAAAAAAJAPn/AAAAAAAAAAAJAPr/AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPz/AAAAAAAAAAAKAPj/AAAAAAAAAAAKAPn/AAAAAAAAAAAKAPr/AAAAAAAAAAAKAPv/AAAAAAAAAAAKAPz/AAAAAAAAAAD8//j/AAAAAAAAAAD8//n/AAAAAAAAAAD8//r/AAAAAAAAAAD9//j/AAAAAAAAAAD9//n/AAAAAAAAAAD9//r/AAAAAAAAAAD+//j/AAAAAAAAAAD+//n/AAAAAAAAAAD+//r/AAAAAAAAAAD///j/AAAAAAAAAAD///n/AAAAAAAAAAD///r/AAAAAAAAAAAAAPj/AAAAAAAAAAAAAPn/AAAAAAAAAAAAAPr/AAAAAAAAAAABAPj/AAAAAAAAAAABAPn/AAAAAAAAAAABAPr/AAAAAAAAAAACAPj/AAAAAAAAAAACAPn/AAAAAAAAAAACAPr/AAAAAAAAAAADAPj/AAAAAAAAAAADAPn/AAAAAAAAAAADAPr/AAAAAAAAAAD7//j/AAAAAAAAAAD7//n/AAAAAAAAAAD7//r/AAAAAAAAAAD7//v/AAAAAAAAAAD8//v/AAAAAAAAAAD9//v/AAAAAAAAAAD+//v/AAAAAAAAAAD///v/AAAAAAAAAAAAAPv/AAAAAAAAAAABAPv/AAAAAAAAAAACAPv/AAAAAAAAAAADAPv/AAAAAAAAAAAAAPf/AAAAAAAAAAABAPf/AAAAAAAAAAACAPf/AAAAAAAAAAADAPf/AAAAAAAAAAA=")
 tile_set = ExtResource("2_or10o")
 
 [node name="Objects" type="Node2D" parent="." unique_id=869415576]
@@ -31,24 +31,8 @@ tile_set = ExtResource("2_or10o")
 
 [node name="Transitions" type="Node2D" parent="." unique_id=195754438]
 
-[node name="TransitionGate" type="Area2D" parent="Transitions" unique_id=665324839 node_paths=PackedStringArray("spawn")]
-position = Vector2(112, 0)
-script = ExtResource("3_o0w18")
-destination_scene_uid = "uid://wls1oxjtglsb"
-spawn = NodePath("Marker2D")
-going_to = Vector2i(1, 0)
-coming_from = Vector2i(-1, 0)
-metadata/_custom_type_script = "uid://co3d555nrg2uw"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate" unique_id=1473015113]
-position = Vector2(0, -24)
-shape = SubResource("RectangleShape2D_sqj2n")
-
-[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate" unique_id=1791472612]
-position = Vector2(-19, 0)
-
-[node name="TransitionGate2" type="Area2D" parent="Transitions" unique_id=717323511 node_paths=PackedStringArray("spawn")]
-position = Vector2(-112, 0)
+[node name="TransitionGate" type="Area2D" parent="Transitions" unique_id=1230621585 node_paths=PackedStringArray("spawn")]
+position = Vector2(-208, 0)
 script = ExtResource("3_o0w18")
 destination_scene_uid = "uid://wls1oxjtglsb"
 spawn = NodePath("Marker2D")
@@ -56,15 +40,78 @@ going_to = Vector2i(-1, 0)
 coming_from = Vector2i(1, 0)
 metadata/_custom_type_script = "uid://co3d555nrg2uw"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate2" unique_id=387024575]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate" unique_id=1753355051]
 position = Vector2(0, -24)
-shape = SubResource("RectangleShape2D_sqj2n")
+shape = SubResource("RectangleShape2D_767g6")
 
-[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate2" unique_id=33767685]
-position = Vector2(19, 0)
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate" unique_id=365451386]
 
-[node name="TransitionGate3" type="Area2D" parent="Transitions" unique_id=1034568720 node_paths=PackedStringArray("spawn")]
-position = Vector2(-64, 8)
+[node name="TransitionGate2" type="Area2D" parent="Transitions" unique_id=589425177 node_paths=PackedStringArray("spawn")]
+position = Vector2(-208, -128)
+script = ExtResource("3_o0w18")
+destination_scene_uid = "uid://wls1oxjtglsb"
+spawn = NodePath("Marker2D")
+match_number = 1
+going_to = Vector2i(-1, 0)
+coming_from = Vector2i(1, 0)
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate2" unique_id=1519881076]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_767g6")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate2" unique_id=69711227]
+
+[node name="TransitionGate3" type="Area2D" parent="Transitions" unique_id=1593774542 node_paths=PackedStringArray("spawn")]
+position = Vector2(208, 0)
+script = ExtResource("3_o0w18")
+destination_scene_uid = "uid://wls1oxjtglsb"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(1, 0)
+coming_from = Vector2i(-1, 0)
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate3" unique_id=22095315]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_767g6")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate3" unique_id=30670830]
+
+[node name="TransitionGate4" type="Area2D" parent="Transitions" unique_id=1360835346 node_paths=PackedStringArray("spawn")]
+position = Vector2(208, -128)
+script = ExtResource("3_o0w18")
+destination_scene_uid = "uid://wls1oxjtglsb"
+spawn = NodePath("Marker2D")
+match_number = 1
+going_to = Vector2i(1, 0)
+coming_from = Vector2i(-1, 0)
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate4" unique_id=1236382346]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_767g6")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate4" unique_id=355279501]
+
+[node name="TransitionGate5" type="Area2D" parent="Transitions" unique_id=1709934006 node_paths=PackedStringArray("spawn")]
+position = Vector2(-32, -192)
+script = ExtResource("3_o0w18")
+destination_scene_uid = "uid://wls1oxjtglsb"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(0, -1)
+coming_from = Vector2i(0, 1)
+up_direction = 1.0
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate5" unique_id=782819383]
+position = Vector2(24, 0)
+shape = SubResource("RectangleShape2D_36o7u")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate5" unique_id=1642930841]
+position = Vector2(24, 40)
+
+[node name="TransitionGate6" type="Area2D" parent="Transitions" unique_id=2103953438 node_paths=PackedStringArray("spawn")]
+position = Vector2(80, 16)
 script = ExtResource("3_o0w18")
 destination_scene_uid = "uid://wls1oxjtglsb"
 spawn = NodePath("Marker2D")
@@ -72,29 +119,12 @@ going_to = Vector2i(0, 1)
 coming_from = Vector2i(0, -1)
 metadata/_custom_type_script = "uid://co3d555nrg2uw"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate3" unique_id=2135203910]
-position = Vector2(16, 0)
-shape = SubResource("RectangleShape2D_cgh54")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate6" unique_id=185945451]
+position = Vector2(24, 0)
+shape = SubResource("RectangleShape2D_36o7u")
 
-[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate3" unique_id=1699239764]
-position = Vector2(16, -5)
-
-[node name="TransitionGate4" type="Area2D" parent="Transitions" unique_id=577791316 node_paths=PackedStringArray("spawn")]
-position = Vector2(0, -72)
-script = ExtResource("3_o0w18")
-destination_scene_uid = "uid://wls1oxjtglsb"
-spawn = NodePath("Marker2D")
-going_to = Vector2i(0, -1)
-coming_from = Vector2i(0, 1)
-up_direction = -1.0
-metadata/_custom_type_script = "uid://co3d555nrg2uw"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate4" unique_id=609250080]
-position = Vector2(16, 0)
-shape = SubResource("RectangleShape2D_cgh54")
-
-[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate4" unique_id=888679485]
-position = Vector2(17, 34)
+[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate6" unique_id=1493035798]
+position = Vector2(24, 10)
 
 [node name="Entities" type="Node2D" parent="." unique_id=554017260]
 
@@ -103,3 +133,7 @@ position = Vector2(17, 34)
 [node name="PlayerSpawn" parent="Player" unique_id=2126367169 instance=ExtResource("3_s8fiq")]
 
 [node name="PlayerCamera" parent="Player" unique_id=1424985965 instance=ExtResource("4_o0w18")]
+limit_left = -216
+limit_top = -192
+limit_right = 216
+limit_bottom = 32

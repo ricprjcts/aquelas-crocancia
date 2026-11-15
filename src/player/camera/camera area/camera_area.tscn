@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://d0agrrwk872ij"]
+
+[ext_resource type="Script" uid="uid://rrivsvtd37ul" path="res://src/player/camera/camera area/camera_area.gd" id="1_j6bnl"]
+[ext_resource type="Script" uid="uid://ddl80fgkubxl" path="res://src/player/camera/camera area/room_camera.gd" id="2_j6bnl"]
+[ext_resource type="Resource" uid="uid://dmebrj611kdbm" path="res://src/resources/tween/camera_tween.tres" id="3_f716y"]
+
+[node name="CameraArea" type="Area2D" unique_id=1749856402 node_paths=PackedStringArray("room_camera")]
+script = ExtResource("1_j6bnl")
+room_camera = NodePath("RoomCamera")
+metadata/_custom_type_script = "uid://rrivsvtd37ul"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2036974508]
+
+[node name="RoomCamera" type="Camera2D" parent="." unique_id=1942083349]
+script = ExtResource("2_j6bnl")
+tween_resource = ExtResource("3_f716y")
+metadata/_custom_type_script = "uid://ddl80fgkubxl"

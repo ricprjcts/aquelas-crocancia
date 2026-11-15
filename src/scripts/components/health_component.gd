@@ -9,7 +9,7 @@ signal invincibility_started
 signal invincibility_ended
 
 @export var max_health := 5
-var health := 0 :
+var health := 0:
 	set(new_health):
 		health = new_health
 		health_changed.emit(health, max_health)

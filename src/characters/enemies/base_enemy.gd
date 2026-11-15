@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name BaseEnemy
 
 @export_group("Components")
+@export var sprite: Sprite2D
 @export var health_component: HealthComponent
 @export var movement_component: MovementComponent
 
@@ -13,12 +14,13 @@ class_name BaseEnemy
 @export var sprite_controller: SpriteController
 @export var hitbox_controller: HitboxController
 
-var spawner: EntitySpawner = null
+var facing_right := false
+var can_flip := true
 
 func _ready() -> void:
+	init()
 	health_component.took_damage.connect(_on_damage_taken)
 	health_component.died.connect(_on_died)
-	init()
 
 func init() -> void:
 	pass

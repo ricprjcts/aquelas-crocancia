@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dl26cqo1ajko8"]
+
+[ext_resource type="Script" uid="uid://bncapqvo8sel6" path="res://src/player/camera/player camera/player_camera.gd" id="1_a6oue"]
+[ext_resource type="Resource" uid="uid://dmebrj611kdbm" path="res://src/resources/tween/camera_tween.tres" id="2_nluv6"]
+
+[node name="PlayerCamera" type="Camera2D" unique_id=1424985965]
+zoom = Vector2(2, 2)
+drag_vertical_enabled = true
+drag_top_margin = 0.4
+drag_bottom_margin = 0.0
+editor_draw_drag_margin = true
+script = ExtResource("1_a6oue")
+look_ahead_offset = 16.0
+look_ahead_speed = 6.0
+catch_player_speed = 6.0
+catch_player_threshold = 0.5
+catch_player_time = 1.5
+follow_offset = Vector2(0, -48)
+tween_resource = ExtResource("2_nluv6")

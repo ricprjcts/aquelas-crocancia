@@ -5,6 +5,9 @@ static var current: MainGame = null
 
 signal scene_freed
 signal scene_loaded
+signal scene_load_failed
+
+signal fade_in_finished
 
 const SCREEN_TRANSITION_SCENE: PackedScene = preload("uid://dgrrdm2pqs3fj")
 
@@ -29,17 +32,13 @@ func _ready() -> void:
 	
 	load_scene(initial_scene_uid)
 	
-	await get_tree().physics_frame
-	
 	_init_player(PLAYER_SCENE_UID)
 
 func load_scene(scene_uid: String) -> void:
 	if is_instance_valid(current_scene):
-		var screen_transition: ScreenTransition = _instantiate_screen_transition()
-		transition_root.add_child(screen_transition)
-		screen_transition.anim.play_backwards("fade")
+		screen_fade_in()
 		
-		await screen_transition.anim.animation_finished
+		await fade_in_finished
 		
 		_free_entities()
 		_set_player_camera(false)
@@ -48,23 +47,24 @@ func load_scene(scene_uid: String) -> void:
 		current_scene = null
 		
 		scene_freed.emit()
-		
-		screen_transition.queue_free()
 	
 	var new_level_packed: PackedScene = ResourceLoader.load(scene_uid, "PackedScene")
 	
 	if new_level_packed == null:
 		push_error("Could not load scene as PackedScene", scene_uid)
+		scene_load_failed.emit()
 		return
 	
 	var new_level: Node = new_level_packed.instantiate()
 	if new_level == null:
 		push_error("Could not instantiate level", scene_uid)
+		scene_load_failed.emit()
 		return
 	
 	if new_level is not BaseLevel:
 		push_error("Scene is not BaseLevel", scene_uid)
 		new_level.free()
+		scene_load_failed.emit()
 		return
 	
 	current_scene = new_level
@@ -72,32 +72,50 @@ func load_scene(scene_uid: String) -> void:
 	
 	scene_loaded.emit()
 	
-	var screen_transition: ScreenTransition = _instantiate_screen_transition()
-	transition_root.add_child(screen_transition)
-	screen_transition.anim.play("fade")
+	_set_player_camera()
+
+func screen_fade_in() -> void:
+	var screen_transition := SCREEN_TRANSITION_SCENE.instantiate() as ScreenTransition
+	if screen_transition == null:
+		push_error("Could not instantiate screen transition")
+		return
 	
-	_set_player_camera(true)
+	transition_root.add_child(screen_transition)
+	screen_transition.anim.play_backwards("fade")
 	
 	await screen_transition.anim.animation_finished
 	
+	fade_in_finished.emit()
+
+func screen_fade_out() -> void:
+	var screen_transition := transition_root.get_node_or_null("ScreenTransition") as ScreenTransition
+	if screen_transition == null:
+		screen_transition = SCREEN_TRANSITION_SCENE.instantiate() as ScreenTransition
+		transition_root.add_child(screen_transition)
+	
+	if screen_transition == null:
+		push_error("Could not load screen transition")
+		return
+	
+	screen_transition.anim.play("fade")
+	
+	await screen_transition.anim.animation_finished
+		
 	screen_transition.queue_free()
+
+func place_player_at_default_spawn() -> void:
+	if player == null or current_scene == null:
+		return
+	
+	var spawn_pos: Vector2 = current_scene.get_player_default_spawn()
+	player.global_position = spawn_pos
 
 func _free_entities() -> void:
 	for entity: CharacterBody2D in entities_root.get_children():
 		if entity is Player:
 			continue
+		
 		entity.queue_free()
-
-func _instantiate_screen_transition() -> ScreenTransition:
-	var screen_transition := SCREEN_TRANSITION_SCENE.instantiate()
-	if screen_transition == null:
-		push_error("Could not instantiate screen transition")
-		return
-	
-	if screen_transition is not ScreenTransition:
-		return
-	
-	return screen_transition
 
 func _init_game_hud() -> void:
 	if player == null or current_scene == null:
@@ -134,27 +152,20 @@ func _init_player(player_scene_uid: String) -> void:
 		return
 	
 	player = player_instance
+	player.main_game = self
 	
+	place_player_at_default_spawn()
+	_set_player_camera()
 	_init_game_hud()
-	_place_player_at_default_spawn()
-	_set_player_camera(true)
 	
 	entities_root.add_child(player)
 
-func _place_player_at_default_spawn() -> void:
-	if player == null or current_scene == null:
-		return
-	
-	var spawn_pos: Vector2 = current_scene.get_player_default_spawn()
-	player.global_position = spawn_pos
-
-func _set_player_camera(state: bool) -> void:
+func _set_player_camera(state: bool = true) -> void:
 	if player == null or current_scene == null:
 		return
 	
 	var player_camera: PlayerCamera = current_scene.get_player_camera()
-	match state:
-		true:
-			player_camera.init(player)
-		false:
-			player_camera.disable()
+	if state:
+		player_camera.init(player)
+	else:
+		player_camera.disable()

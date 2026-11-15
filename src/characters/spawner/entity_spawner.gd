@@ -29,8 +29,6 @@ func load_entity() -> void:
 	if main_game == null:
 		return
 	
-	if new_entity is BaseEnemy:
-		new_entity.spawner = self
 	new_entity.global_position = global_position
 	main_game.entities_root.add_child(new_entity)
 	

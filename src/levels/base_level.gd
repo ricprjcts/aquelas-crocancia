@@ -17,7 +17,7 @@ func get_player_camera() -> PlayerCamera:
 func get_transition_gate_spawn(gate: TransitionGate) -> Vector2:
 	var gates := _get_transition_gates()
 	if gates == []:
-		return Vector2.ZERO
+		return get_player_default_spawn()
 	
 	for new_gate: TransitionGate in gates:
 		if new_gate is not TransitionGate:
@@ -27,7 +27,7 @@ func get_transition_gate_spawn(gate: TransitionGate) -> Vector2:
 			var gate_spawn := new_gate.spawn
 			return gate_spawn.global_position
 	
-	return Vector2.ZERO
+	return get_player_default_spawn()
 
 func _get_transition_gates() -> Array[Node]:
 	if transitions == null:

@@ -1,27 +1,34 @@
 extends BaseState
 
+@export var up_speed := 120.0
+@export var up_accel := 600.0  
+@export var up_pop_height := 40.0
 @export var speed_multi := 0.5
-@export var gravity_multi := 0.5
-@export var max_gravity_multi := 1.5
-var multiplier := 0.0
 
-var halfway := false
+var at_new_level := false
 
 func enter() -> void:
-	multiplier = gravity_multi
+	movement.jump = false
+	movement.dash = false
+	movement.attack = false
 	
 	if not MainGame.current.scene_loaded.is_connected(_on_level_loaded):
 		MainGame.current.scene_loaded.connect(_on_level_loaded)
 	
 	if SceneManager.going_to == Vector2i.LEFT or SceneManager.going_to == Vector2i.RIGHT:
-		movement.direction = 1.0 if player.facing_right else -1.0
+		movement.direction = float(SceneManager.going_to.x)
+	else:
+		if SceneManager.going_to == Vector2i.UP:
+			player.velocity.y = movement.jump_velocity
+		
+		movement.direction = 0.0
 	
 	movement.set_stun(-1.0)
 
 func exit() -> void:
 	if MainGame.current.scene_loaded.is_connected(_on_level_loaded):
 		MainGame.current.scene_loaded.disconnect(_on_level_loaded)
-	halfway = false
+	at_new_level = false
 
 func physics_process(delta: float) -> void:
 	if SceneManager.going_to == Vector2i.LEFT or SceneManager.going_to == Vector2i.RIGHT:
@@ -44,30 +51,30 @@ func _down_transition(delta: float) -> void:
 	player.velocity.y += movement.gravity * delta
 
 func _up_transition(delta: float) -> void:
-	match halfway:
-		false:
-			player.velocity.y -= (movement.gravity * multiplier) * delta
-		true:
-			player.velocity.x = movement.direction * (movement.speed * speed_multi)
-			player.velocity.y += movement.gravity * delta
-	
-	multiplier = minf(multiplier + (multiplier * delta), max_gravity_multi)
+	if not at_new_level:
+		player.velocity.x = move_toward(player.velocity.x, 0.0, movement.speed * movement.deceleration)
+		player.velocity.y = move_toward(player.velocity.y, -up_speed, up_accel * delta)
+	else:
+		player.velocity.x = movement.direction * movement.speed * speed_multi
+		player.velocity.y += movement.gravity * delta
 
 func _on_level_loaded() -> void:
-	if SceneManager.going_to != Vector2i.DOWN:
-		var timer := get_tree().create_timer(player.transition_stun_time)
-		timer.timeout.connect(_on_transition_ended)
-		movement.set_stun(player.transition_stun_time)
-	else:
-		var timer := get_tree().create_timer(player.transition_stun_time * 0.25)
-		timer.timeout.connect(_on_transition_ended)
-		movement.set_stun(player.transition_stun_time * 0.25)
+	var stun_time := player.transition_stun_time
+	if SceneManager.going_to == Vector2i.DOWN:
+		stun_time *= 0.25
+		player.velocity.y *= 0.1
+	
+	get_tree().create_timer(stun_time).timeout.connect(_on_transition_ended)
+	movement.set_stun(stun_time)
 	
 	if SceneManager.going_to == Vector2i.UP:
 		movement.direction = SceneManager.up_direction
-		halfway = true
+		at_new_level = true
+		player.velocity.y = -sqrt(2.0 * movement.gravity * up_pop_height)
 
 func _on_transition_ended() -> void:
+	SceneManager.transitioning = false
+	
 	if player.hitbox_controller.is_disabled(player.hurtbox.collision):
 		player.hitbox_controller.enable_hitbox(player.hurtbox.collision)
 	

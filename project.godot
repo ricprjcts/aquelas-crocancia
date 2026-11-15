@@ -20,10 +20,6 @@ config/icon="res://assets/icon.svg"
 PlayerHelper="*uid://dhrgw46i1mgr3"
 SceneManager="*uid://c4ubxrmjik6pq"
 
-[debug]
-
-shapes/collision/shape_color=Color(1, 1, 0, 0)
-
 [display]
 
 window/size/viewport_width=640

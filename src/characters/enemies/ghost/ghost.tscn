@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://wufyj8h1dgpm" path="res://src/scripts/components/movement_component.gd" id="6_4c7nl"]
 [ext_resource type="Script" uid="uid://bj6oclaekwfl0" path="res://src/scripts/components/sprite_controller.gd" id="7_pjmeo"]
 [ext_resource type="Script" uid="uid://dukgwr3aru8hh" path="res://src/scripts/components/hitbox_controller.gd" id="9_er1nc"]
+[ext_resource type="BehaviorTree" uid="uid://dn463g7i7dfrb" path="res://ai/trees/ghost_tree.tres" id="10_4c7nl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xfxem"]
 resource_local_to_scene = true
@@ -17,13 +18,13 @@ shader_parameter/blink_color = Color(1, 1, 1, 1)
 shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sn6hd"]
-size = Vector2(12, 49)
+size = Vector2(12, 47)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xfxem"]
-size = Vector2(12, 49)
+size = Vector2(12, 47)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hm3dp"]
-size = Vector2(12, 49)
+size = Vector2(12, 47)
 
 [sub_resource type="Animation" id="Animation_er1nc"]
 length = 0.001
@@ -119,11 +120,16 @@ _data = {
 &"vanish": SubResource("Animation_4xpd7")
 }
 
-[node name="Ghost" type="CharacterBody2D" unique_id=1713620969 node_paths=PackedStringArray("health_component", "movement_component", "hitbox", "hurtbox", "sprite_controller", "hitbox_controller")]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_er1nc"]
+
+[node name="Ghost" type="CharacterBody2D" unique_id=1713620969 node_paths=PackedStringArray("bt_player", "anim", "wall_ray", "ledge_ray", "sprite", "health_component", "movement_component", "hitbox", "hurtbox", "sprite_controller", "hitbox_controller")]
 collision_layer = 0
 script = ExtResource("1_hm3dp")
-respawn_enabled = true
-damage_iframes = 0.3
+bt_player = NodePath("BTPlayer")
+anim = NodePath("Anim")
+wall_ray = NodePath("Raycasts/WallRay")
+ledge_ray = NodePath("Raycasts/LedgeRay")
+sprite = NodePath("Sprite")
 health_component = NodePath("Components/HealthComponent")
 movement_component = NodePath("Components/MovementComponent")
 hitbox = NodePath("Hitboxes/Hitbox")
@@ -140,8 +146,9 @@ hframes = 7
 vframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=44260390]
-position = Vector2(0, -24.5)
+position = Vector2(0, -23.5)
 shape = SubResource("RectangleShape2D_sn6hd")
+debug_color = Color(1, 1, 0, 0)
 
 [node name="Hitboxes" type="Node2D" parent="." unique_id=1038660921]
 
@@ -152,19 +159,32 @@ collision = NodePath("CollisionShape2D")
 metadata/_custom_type_script = "uid://c132ldhrnabpv"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Hitbox" unique_id=213273706]
-position = Vector2(0, -24.5)
+position = Vector2(0, -23.5)
 shape = SubResource("RectangleShape2D_xfxem")
+debug_color = Color(1, 1, 0, 0)
 
 [node name="Hurtbox" type="Area2D" parent="Hitboxes" unique_id=177639416 node_paths=PackedStringArray("body", "collision", "health_component")]
 script = ExtResource("4_hm3dp")
 body = NodePath("../..")
 collision = NodePath("CollisionShape2D")
 health_component = NodePath("../../Components/HealthComponent")
+invincibility_time = 0.3
 metadata/_custom_type_script = "uid://b03xiaopsllhc"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Hurtbox" unique_id=1626565969]
-position = Vector2(0, -24.5)
+position = Vector2(0, -23.5)
 shape = SubResource("RectangleShape2D_hm3dp")
+debug_color = Color(1, 1, 0, 0)
+
+[node name="Raycasts" type="Node2D" parent="." unique_id=1970900240]
+
+[node name="WallRay" type="RayCast2D" parent="Raycasts" unique_id=123392989]
+position = Vector2(0, -15)
+target_position = Vector2(-16, 0)
+
+[node name="LedgeRay" type="RayCast2D" parent="Raycasts" unique_id=1779770549]
+position = Vector2(-12, -15)
+target_position = Vector2(0, 32)
 
 [node name="Components" type="Node" parent="." unique_id=1139534994]
 
@@ -190,3 +210,7 @@ metadata/_custom_type_script = "uid://dukgwr3aru8hh"
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=832878222]
 libraries/ = SubResource("AnimationLibrary_er1nc")
 autoplay = &"spawn"
+
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=765136277]
+behavior_tree = ExtResource("10_4c7nl")
+blackboard_plan = SubResource("BlackboardPlan_er1nc")

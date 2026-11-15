@@ -19,9 +19,20 @@ var attacking := false
 
 var dash := false
 var attack := false
+var wall_jump = false
 
 func wants_wall_jump() -> bool:
 	return body.is_on_wall_only() and jump
+
+func do_wall_jump(duration: float) -> void:
+	if wall_jump:
+		return
+	
+	wall_jump = true
+	var timer := get_tree().create_timer(duration)
+	timer.timeout.connect(func():
+		wall_jump = false
+		)
 
 func can_dash() -> bool:
 	return not dash_debounce and dash_amount > 0 and not attacking and not is_stunned()

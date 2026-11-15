@@ -11,20 +11,18 @@ class_name Player
 @export var collision: CollisionShape2D
 @export var hurtbox: Hurtbox
 @export var hitbox: Hitbox
+@export var wall_ray: RayCast2D
+@export var ground_ray: RayCast2D
 
 @export_group("Controllers")
 @export var sprite_controller: SpriteController
 @export var hitbox_controller: HitboxController
 
 @export_category("Values")
-@export var damage_iframes := 1.0
 @export var damage_stun := 0.5
 @export var transition_stun_time := 1.0
 
 @onready var sprite: AnimatedSprite2D = $Sprite
-
-@onready var _wall_ray: RayCast2D = $Raycasts/WallRay
-@onready var _ground_ray: RayCast2D = $Raycasts/GroundRay
 
 var states := {
 	idle = "Idle",
@@ -38,6 +36,8 @@ var states := {
 	dead = "Dead",
 	transition = "Transition",
 }
+
+var main_game: MainGame = null
 var facing_right := true
 var can_flip := true
 var interact := false
@@ -49,9 +49,12 @@ var _jump_buffer_counter := 0.0
 func _ready() -> void:
 	_set_health()
 	
-	MainGame.current.scene_loaded.connect(_on_level_loaded)
-	PlayerHelper.player_ready.emit()
+	main_game.scene_loaded.connect(_on_level_loaded)
+	main_game.screen_fade_out()
+	
 	state_machine.init(self, movement)
+	
+	PlayerHelper.player_ready.emit()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -84,16 +87,16 @@ func scene_transition() -> void:
 	hitbox_controller.disable_hitbox(hurtbox.collision)
 
 func is_interacting() -> bool:
-	return _can_interact()
+	return interact and _can_interact()
 
 func is_facing_right() -> bool:
 	return facing_right
 
 func _can_interact() -> bool:
-	return interact and is_on_floor() and not movement.is_stunned() and not movement.dashing and not movement.attacking
+	return is_on_floor() and not movement.is_stunned() and not movement.dashing and not movement.attacking
 
 func can_wall_grab() -> bool:
-	return is_on_wall_only() and _wall_ray.is_colliding() and not _ground_ray.is_colliding()
+	return is_on_wall_only() and wall_ray.is_colliding() and not ground_ray.is_colliding() and not movement.is_stunned()
 
 func set_stun(duration: float) -> void:
 	var stun_state := state_machine.get_node(states.stun) as BaseState
@@ -116,7 +119,6 @@ func _on_health_changed(current_health: int, max_health: int) -> void:
 
 func _on_damage_taken(amount: int) -> void:
 	PlayerHelper.took_damage.emit(amount)
-	health.set_invincibility(damage_iframes)
 	set_stun(damage_stun)
 	sprite_controller.blink()
 	
@@ -138,6 +140,8 @@ func _on_invincibility_started() -> void:
 	pass
 
 func _on_invincibility_ended():
+	if state_machine.active_state.name == states.transition:
+		return
 	hitbox_controller.reset_hitbox(hurtbox.collision)
 #endregion
 
@@ -194,5 +198,5 @@ func _flip_char() -> void:
 			facing_right = false
 
 func _flip_collisions() -> void:
-	_wall_ray.target_position.x = 16.0 if is_facing_right() else -16.0
+	wall_ray.target_position.x = 16.0 if is_facing_right() else -16.0
 	hitbox.collision.position.x = 17.0 if is_facing_right() else -17.0
