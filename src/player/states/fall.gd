@@ -1,7 +1,12 @@
 extends BaseState
 
 func physics_process(delta: float) -> void:
-	player.velocity.x = movement.direction * movement.speed
+	var friction := movement.acceleration if movement.is_moving() else movement.deceleration
+	if not movement.is_moving() and player.was_on_knockback:
+		player.velocity.x = move_toward(player.velocity.x, player.velocity.x, friction * delta)
+	else:
+		player.velocity.x = move_toward(player.velocity.x, movement.direction * movement.speed, friction * delta)
+	
 	player.velocity.y += movement.gravity * delta
 	player.move_and_slide()
 	
@@ -9,11 +14,11 @@ func physics_process(delta: float) -> void:
 		_touch_floor()
 		return
 	
-	if movement.do_dash():
+	if player.do_dash():
 		change_state.emit(states[player.states.dash])
 		return
 	
-	if movement.do_attack():
+	if player.do_attack():
 		change_state.emit(states[player.states.attack])
 		return
 	

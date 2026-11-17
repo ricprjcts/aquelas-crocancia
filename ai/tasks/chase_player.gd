@@ -32,7 +32,7 @@ func _tick(delta: float) -> Status:
 	if chase_timer >= chase_duration:
 		return SUCCESS
 	
-	if absf(agent.global_position.x - player.global_position.x) <= 12.0:
+	if absf(agent.global_position.x - player.global_position.x) <= 8.0:
 		return SUCCESS
 	
 	if absf(agent.global_position.x - player.global_position.x) <= 16.0 and player.global_position.y < agent.global_position.y - 16.0:

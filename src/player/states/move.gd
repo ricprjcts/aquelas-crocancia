@@ -4,7 +4,7 @@ extends BaseState
 var coyote_jump_counter := 0.0
 
 func physics_process(delta: float) -> void:
-	player.velocity.x = movement.direction * movement.speed
+	player.velocity.x = move_toward(player.velocity.x, movement.direction * movement.speed, movement.acceleration * delta)
 	player.velocity.y += movement.gravity * delta
 	player.move_and_slide()
 	
@@ -16,11 +16,11 @@ func physics_process(delta: float) -> void:
 		change_state.emit(states[player.states.jump])
 		return
 	
-	if movement.do_dash():
+	if player.do_dash():
 		change_state.emit(states[player.states.dash])
 		return
 	
-	if movement.do_attack():
+	if player.do_attack():
 		change_state.emit(states[player.states.attack])
 		return
 	

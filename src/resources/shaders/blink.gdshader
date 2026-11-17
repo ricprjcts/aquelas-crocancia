@@ -1,4 +1,5 @@
 shader_type canvas_item;
+
 uniform vec4 blink_color: source_color;
 uniform float blink_intensity = 0.0;
 

@@ -6,7 +6,7 @@
 [node name="MainGame" type="Node" unique_id=1388648313 groups=["MainGame"]]
 process_mode = 3
 script = ExtResource("1_84org")
-initial_scene_uid = "uid://ipx6i0v1egpf"
+initial_scene_uid = "uid://wkr4vvp5pfey"
 
 [node name="World" type="Node2D" parent="." unique_id=985237013]
 

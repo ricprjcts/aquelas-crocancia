@@ -1,5 +1,5 @@
 extends Marker2D
-class_name EntitySpawner
+class_name OnScreenSpawner
 
 @export var enabled: bool = true
 

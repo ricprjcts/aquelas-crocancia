@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://c1fd22u8l3gc7" path="res://src/player/spawn/player_spawn.tscn" id="3_s7cun"]
 [ext_resource type="PackedScene" uid="uid://dl26cqo1ajko8" path="res://src/player/camera/player camera/player_camera.tscn" id="4_h802f"]
 [ext_resource type="Texture2D" uid="uid://bstfvgusn574e" path="res://assets/world/old_growth_parallax_foreground.png" id="4_yo4j4"]
-[ext_resource type="Script" uid="uid://co3d555nrg2uw" path="res://src/scripts/components/transitions_gate.gd" id="6_lkxah"]
-[ext_resource type="Script" uid="uid://rrivsvtd37ul" path="res://src/player/camera/camera area/camera_area.gd" id="9_fpjiq"]
-[ext_resource type="Script" uid="uid://ddl80fgkubxl" path="res://src/player/camera/camera area/room_camera.gd" id="10_yo4j4"]
+[ext_resource type="Script" uid="uid://co3d555nrg2uw" path="res://src/components/collision/transitions_gate.gd" id="6_lkxah"]
+[ext_resource type="Script" uid="uid://rrivsvtd37ul" path="res://src/components/collision/room_area.gd" id="9_fpjiq"]
+[ext_resource type="Script" uid="uid://ddl80fgkubxl" path="res://src/player/camera/room_camera.gd" id="10_yo4j4"]
 [ext_resource type="Resource" uid="uid://dmebrj611kdbm" path="res://src/resources/tween/camera_tween.tres" id="11_lkxah"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_767g6"]
@@ -75,7 +75,7 @@ tile_set = ExtResource("2_r07l1")
 
 [node name="Transitions" type="Node2D" parent="." unique_id=1710193056]
 
-[node name="TransitionGate" type="Area2D" parent="Transitions" unique_id=1577471032 node_paths=PackedStringArray("spawn")]
+[node name="CaveDescendGate" type="Area2D" parent="Transitions" unique_id=1577471032 node_paths=PackedStringArray("spawn")]
 position = Vector2(448, 38)
 script = ExtResource("6_lkxah")
 destination_scene_uid = "uid://b2fc8u0pn1o2l"
@@ -84,11 +84,11 @@ going_to = Vector2i(0, 1)
 coming_from = Vector2i(0, -1)
 metadata/_custom_type_script = "uid://co3d555nrg2uw"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate" unique_id=405764384]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/CaveDescendGate" unique_id=405764384]
 position = Vector2(80, 0)
 shape = SubResource("RectangleShape2D_767g6")
 
-[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate" unique_id=1910110280]
+[node name="Marker2D" type="Marker2D" parent="Transitions/CaveDescendGate" unique_id=1910110280]
 position = Vector2(23, -46)
 
 [node name="Entities" type="Node2D" parent="." unique_id=885844686]
@@ -101,7 +101,7 @@ position = Vector2(23, -46)
 position = Vector2(322, -16)
 
 [node name="PlayerCamera" parent="Entities/Player" unique_id=1424985965 instance=ExtResource("4_h802f")]
-position = Vector2(420, -287)
+position = Vector2(209, 74)
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
@@ -116,6 +116,7 @@ metadata/_custom_type_script = "uid://rrivsvtd37ul"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Player/CameraAreas/LeftCameraArea" unique_id=174520948]
 shape = SubResource("RectangleShape2D_yo4j4")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="RoomCamera" type="Camera2D" parent="Entities/Player/CameraAreas/LeftCameraArea" unique_id=2120661581]
 offset = Vector2(0, -48)
@@ -132,6 +133,7 @@ metadata/_custom_type_script = "uid://rrivsvtd37ul"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Player/CameraAreas/DescendCameraArea" unique_id=963991318]
 shape = SubResource("RectangleShape2D_lkxah")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="RoomCamera" type="Camera2D" parent="Entities/Player/CameraAreas/DescendCameraArea" unique_id=113247324]
 offset = Vector2(0, -48)

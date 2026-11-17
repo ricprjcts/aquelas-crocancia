@@ -4,13 +4,14 @@ extends BaseState
 @export var up_accel := 600.0  
 @export var up_pop_height := 40.0
 @export var speed_multi := 0.5
+@export var deceleration: float = 5.0
 
 var at_new_level := false
 
 func enter() -> void:
 	movement.jump = false
-	movement.dash = false
-	movement.attack = false
+	player.dash = false
+	player.attack = false
 	
 	if not MainGame.current.scene_loaded.is_connected(_on_level_loaded):
 		MainGame.current.scene_loaded.connect(_on_level_loaded)
@@ -26,9 +27,11 @@ func enter() -> void:
 	movement.set_stun(-1.0)
 
 func exit() -> void:
-	if MainGame.current.scene_loaded.is_connected(_on_level_loaded):
-		MainGame.current.scene_loaded.disconnect(_on_level_loaded)
+	SceneManager.transitioning = false
 	at_new_level = false
+	
+	if player.hitbox_controller.is_disabled(player.hurtbox.collision):
+		player.hitbox_controller.enable_hitbox(player.hurtbox.collision)
 
 func physics_process(delta: float) -> void:
 	if SceneManager.going_to == Vector2i.LEFT or SceneManager.going_to == Vector2i.RIGHT:
@@ -52,7 +55,7 @@ func _down_transition(delta: float) -> void:
 
 func _up_transition(delta: float) -> void:
 	if not at_new_level:
-		player.velocity.x = move_toward(player.velocity.x, 0.0, movement.speed * movement.deceleration)
+		player.velocity.x = move_toward(player.velocity.x, 0.0, movement.speed * deceleration)
 		player.velocity.y = move_toward(player.velocity.y, -up_speed, up_accel * delta)
 	else:
 		player.velocity.x = movement.direction * movement.speed * speed_multi
@@ -73,11 +76,6 @@ func _on_level_loaded() -> void:
 		player.velocity.y = -sqrt(2.0 * movement.gravity * up_pop_height)
 
 func _on_transition_ended() -> void:
-	SceneManager.transitioning = false
-	
-	if player.hitbox_controller.is_disabled(player.hurtbox.collision):
-		player.hitbox_controller.enable_hitbox(player.hurtbox.collision)
-	
 	if state_machine.active_state == self:
 		if player.is_on_floor():
 			if movement.is_moving():

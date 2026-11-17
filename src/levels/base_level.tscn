@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://b43ob8fyykf64"]
 
 [ext_resource type="Script" uid="uid://bqj8h8cm3bknw" path="res://src/levels/base_level.gd" id="1_orunl"]
+[ext_resource type="PackedScene" uid="uid://c1fd22u8l3gc7" path="res://src/player/spawn/player_spawn.tscn" id="2_pneeb"]
+[ext_resource type="TileSet" uid="uid://dikc8kbm6of47" path="res://src/resources/tilesets/old_growth_tile_set.tres" id="2_rr505"]
+[ext_resource type="PackedScene" uid="uid://dl26cqo1ajko8" path="res://src/player/camera/player camera/player_camera.tscn" id="3_rr505"]
 
 [node name="BaseLevel" type="Node2D" unique_id=1277537106]
 script = ExtResource("1_orunl")
@@ -11,6 +14,9 @@ metadata/_custom_type_script = "uid://bqj8h8cm3bknw"
 [node name="Background" type="Node2D" parent="Map" unique_id=2105209773]
 
 [node name="Midground" type="Node2D" parent="Map" unique_id=171794706]
+
+[node name="Ground" type="TileMapLayer" parent="Map/Midground" unique_id=1580031247]
+tile_set = ExtResource("2_rr505")
 
 [node name="Forground" type="Node2D" parent="Map" unique_id=836616123]
 
@@ -25,5 +31,9 @@ metadata/_custom_type_script = "uid://bqj8h8cm3bknw"
 [node name="Spawners" type="Node2D" parent="Entities" unique_id=296598662]
 
 [node name="Player" type="Node2D" parent="Entities" unique_id=1795455900]
+
+[node name="PlayerSpawn" parent="Entities/Player" unique_id=2126367169 instance=ExtResource("2_pneeb")]
+
+[node name="PlayerCamera" parent="Entities/Player" unique_id=1424985965 instance=ExtResource("3_rr505")]
 
 [node name="CameraAreas" type="Node2D" parent="Entities/Player" unique_id=488696332]

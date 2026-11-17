@@ -3,13 +3,14 @@
 [ext_resource type="Script" uid="uid://drh7l665dl0uo" path="res://src/characters/enemies/ghost/ghost.gd" id="1_hm3dp"]
 [ext_resource type="Shader" uid="uid://coluplyeorkar" path="res://src/resources/shaders/blink.gdshader" id="2_hm3dp"]
 [ext_resource type="Texture2D" uid="uid://c30tsm0w0nd0k" path="res://assets/characters/ghost/ghost-sprite-sheet.png" id="2_sn6hd"]
-[ext_resource type="Script" uid="uid://c132ldhrnabpv" path="res://src/scripts/components/hitbox.gd" id="3_xfxem"]
-[ext_resource type="Script" uid="uid://b03xiaopsllhc" path="res://src/scripts/components/hurtbox.gd" id="4_hm3dp"]
-[ext_resource type="Script" uid="uid://b86uj4qxpmgak" path="res://src/scripts/components/health_component.gd" id="5_er1nc"]
-[ext_resource type="Script" uid="uid://wufyj8h1dgpm" path="res://src/scripts/components/movement_component.gd" id="6_4c7nl"]
-[ext_resource type="Script" uid="uid://bj6oclaekwfl0" path="res://src/scripts/components/sprite_controller.gd" id="7_pjmeo"]
-[ext_resource type="Script" uid="uid://dukgwr3aru8hh" path="res://src/scripts/components/hitbox_controller.gd" id="9_er1nc"]
+[ext_resource type="Script" uid="uid://c132ldhrnabpv" path="res://src/components/collision/hitbox.gd" id="3_xfxem"]
+[ext_resource type="Script" uid="uid://b03xiaopsllhc" path="res://src/components/collision/hurtbox.gd" id="4_hm3dp"]
+[ext_resource type="Script" uid="uid://b86uj4qxpmgak" path="res://src/components/health_component.gd" id="5_er1nc"]
+[ext_resource type="Script" uid="uid://wufyj8h1dgpm" path="res://src/components/movement_component.gd" id="6_4c7nl"]
+[ext_resource type="Script" uid="uid://bj6oclaekwfl0" path="res://src/components/controllers/sprite_controller.gd" id="7_pjmeo"]
+[ext_resource type="Script" uid="uid://dukgwr3aru8hh" path="res://src/components/controllers/hitbox_controller.gd" id="9_er1nc"]
 [ext_resource type="BehaviorTree" uid="uid://dn463g7i7dfrb" path="res://ai/trees/ghost_tree.tres" id="10_4c7nl"]
+[ext_resource type="Script" uid="uid://m5us87hlt3aw" path="res://src/components/knockback_component.gd" id="10_pjmeo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xfxem"]
 resource_local_to_scene = true
@@ -122,16 +123,17 @@ _data = {
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_er1nc"]
 
-[node name="Ghost" type="CharacterBody2D" unique_id=1713620969 node_paths=PackedStringArray("bt_player", "anim", "wall_ray", "ledge_ray", "sprite", "health_component", "movement_component", "hitbox", "hurtbox", "sprite_controller", "hitbox_controller")]
+[node name="Ghost" type="CharacterBody2D" unique_id=1713620969 node_paths=PackedStringArray("bt_player", "anim", "wall_ray", "ledge_ray", "sprite", "health", "movement", "hitbox", "hurtbox", "sprite_controller", "hitbox_controller")]
 collision_layer = 0
 script = ExtResource("1_hm3dp")
 bt_player = NodePath("BTPlayer")
+enabled = false
 anim = NodePath("Anim")
 wall_ray = NodePath("Raycasts/WallRay")
 ledge_ray = NodePath("Raycasts/LedgeRay")
 sprite = NodePath("Sprite")
-health_component = NodePath("Components/HealthComponent")
-movement_component = NodePath("Components/MovementComponent")
+health = NodePath("Components/HealthComponent")
+movement = NodePath("Components/MovementComponent")
 hitbox = NodePath("Hitboxes/Hitbox")
 hurtbox = NodePath("Hitboxes/Hurtbox")
 sprite_controller = NodePath("Components/SpriteController")
@@ -142,6 +144,7 @@ metadata/_custom_type_script = "uid://cfa2opkiyn84a"
 material = SubResource("ShaderMaterial_xfxem")
 position = Vector2(0, -28)
 texture = ExtResource("2_sn6hd")
+offset = Vector2(1, 0)
 hframes = 7
 vframes = 5
 
@@ -163,12 +166,12 @@ position = Vector2(0, -23.5)
 shape = SubResource("RectangleShape2D_xfxem")
 debug_color = Color(1, 1, 0, 0)
 
-[node name="Hurtbox" type="Area2D" parent="Hitboxes" unique_id=177639416 node_paths=PackedStringArray("body", "collision", "health_component")]
+[node name="Hurtbox" type="Area2D" parent="Hitboxes" unique_id=177639416 node_paths=PackedStringArray("body", "collision", "knockback_component", "health_component")]
 script = ExtResource("4_hm3dp")
 body = NodePath("../..")
 collision = NodePath("CollisionShape2D")
+knockback_component = NodePath("../../Components/KnockbackComponent")
 health_component = NodePath("../../Components/HealthComponent")
-invincibility_time = 0.3
 metadata/_custom_type_script = "uid://b03xiaopsllhc"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Hurtbox" unique_id=1626565969]
@@ -190,7 +193,7 @@ target_position = Vector2(0, 32)
 
 [node name="HealthComponent" type="Node" parent="Components" unique_id=63910455]
 script = ExtResource("5_er1nc")
-max_health = 3
+max_health = 2
 metadata/_custom_type_script = "uid://b86uj4qxpmgak"
 
 [node name="MovementComponent" type="Node" parent="Components" unique_id=1636129149 node_paths=PackedStringArray("body")]
@@ -206,6 +209,11 @@ metadata/_custom_type_script = "uid://bj6oclaekwfl0"
 [node name="HitboxController" type="Node" parent="Components" unique_id=1053539756]
 script = ExtResource("9_er1nc")
 metadata/_custom_type_script = "uid://dukgwr3aru8hh"
+
+[node name="KnockbackComponent" type="Node" parent="Components" unique_id=1463445276 node_paths=PackedStringArray("body")]
+script = ExtResource("10_pjmeo")
+body = NodePath("../..")
+metadata/_custom_type_script = "uid://m5us87hlt3aw"
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=832878222]
 libraries/ = SubResource("AnimationLibrary_er1nc")

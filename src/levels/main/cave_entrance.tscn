@@ -2,16 +2,19 @@
 
 [ext_resource type="Script" uid="uid://bqj8h8cm3bknw" path="res://src/levels/base_level.gd" id="1_jq0o7"]
 [ext_resource type="TileSet" uid="uid://dikc8kbm6of47" path="res://src/resources/tilesets/old_growth_tile_set.tres" id="2_wq6x8"]
-[ext_resource type="Script" uid="uid://co3d555nrg2uw" path="res://src/scripts/components/transitions_gate.gd" id="3_6u8ww"]
+[ext_resource type="Script" uid="uid://co3d555nrg2uw" path="res://src/components/collision/transitions_gate.gd" id="3_6u8ww"]
 [ext_resource type="PackedScene" uid="uid://c1fd22u8l3gc7" path="res://src/player/spawn/player_spawn.tscn" id="3_i141n"]
 [ext_resource type="PackedScene" uid="uid://dl26cqo1ajko8" path="res://src/player/camera/player camera/player_camera.tscn" id="4_k6okd"]
-[ext_resource type="PackedScene" uid="uid://bww4bisu75616" path="res://src/characters/spawner/entity_spawner.tscn" id="4_uyhnu"]
-[ext_resource type="Script" uid="uid://rrivsvtd37ul" path="res://src/player/camera/camera area/camera_area.gd" id="6_lhvn0"]
-[ext_resource type="Script" uid="uid://ddl80fgkubxl" path="res://src/player/camera/camera area/room_camera.gd" id="7_8foa0"]
+[ext_resource type="PackedScene" uid="uid://bww4bisu75616" path="res://src/characters/spawner/on_screen_spawner.tscn" id="4_uyhnu"]
+[ext_resource type="Script" uid="uid://rrivsvtd37ul" path="res://src/components/collision/room_area.gd" id="6_lhvn0"]
+[ext_resource type="Script" uid="uid://ddl80fgkubxl" path="res://src/player/camera/room_camera.gd" id="7_8foa0"]
 [ext_resource type="Resource" uid="uid://dmebrj611kdbm" path="res://src/resources/tween/camera_tween.tres" id="8_v1ou2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sqj2n"]
 size = Vector2(160, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgh54"]
+size = Vector2(20, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w6amo"]
 size = Vector2(264, 166)
@@ -20,7 +23,7 @@ size = Vector2(264, 166)
 size = Vector2(400, 638)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xno86"]
-size = Vector2(366, 125)
+size = Vector2(431, 125)
 
 [node name="CaveEntrance" type="Node2D" unique_id=1277537106 node_paths=PackedStringArray("default_spawn", "player_camera", "transitions")]
 script = ExtResource("1_jq0o7")
@@ -47,7 +50,7 @@ tile_set = ExtResource("2_wq6x8")
 
 [node name="Transitions" type="Node2D" parent="." unique_id=1710193056]
 
-[node name="TransitionGate" type="Area2D" parent="Transitions" unique_id=1908829160 node_paths=PackedStringArray("spawn")]
+[node name="ForestAscendGate" type="Area2D" parent="Transitions" unique_id=1908829160 node_paths=PackedStringArray("spawn")]
 position = Vector2(624, -42)
 script = ExtResource("3_6u8ww")
 destination_scene_uid = "uid://ipx6i0v1egpf"
@@ -57,46 +60,43 @@ coming_from = Vector2i(0, 1)
 up_direction = -1.0
 metadata/_custom_type_script = "uid://co3d555nrg2uw"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionGate" unique_id=1453981815]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/ForestAscendGate" unique_id=1453981815]
 position = Vector2(80, 0)
 shape = SubResource("RectangleShape2D_sqj2n")
 
-[node name="Marker2D" type="Marker2D" parent="Transitions/TransitionGate" unique_id=486076400]
+[node name="Marker2D" type="Marker2D" parent="Transitions/ForestAscendGate" unique_id=486076400]
 position = Vector2(80, 40)
+
+[node name="RightRoomGate" type="Area2D" parent="Transitions" unique_id=339409147 node_paths=PackedStringArray("spawn")]
+position = Vector2(1044, 448)
+script = ExtResource("3_6u8ww")
+destination_scene_uid = "uid://dm3kp5k15bpg"
+spawn = NodePath("Marker2D")
+going_to = Vector2i(1, 0)
+coming_from = Vector2i(-1, 0)
+metadata/_custom_type_script = "uid://co3d555nrg2uw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/RightRoomGate" unique_id=635509255]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_cgh54")
+
+[node name="Marker2D" type="Marker2D" parent="Transitions/RightRoomGate" unique_id=86164169]
 
 [node name="Entities" type="Node2D" parent="." unique_id=885844686]
 
 [node name="Spawners" type="Node2D" parent="Entities" unique_id=296598662]
 
-[node name="EntitySpawner" parent="Entities/Spawners" unique_id=1728023528 instance=ExtResource("4_uyhnu")]
-position = Vector2(281, 448)
+[node name="OnScreenSpawner" parent="Entities/Spawners" unique_id=1728023528 instance=ExtResource("4_uyhnu")]
+position = Vector2(340, 448)
 scene_to_load = "uid://coc2eb0hcep4g"
-
-[node name="EntitySpawner2" parent="Entities/Spawners" unique_id=1881023854 instance=ExtResource("4_uyhnu")]
-position = Vector2(414, 448)
-scene_to_load = "uid://coc2eb0hcep4g"
-delay = 1.0
-
-[node name="EntitySpawner3" parent="Entities/Spawners" unique_id=720426910 instance=ExtResource("4_uyhnu")]
-position = Vector2(207, 448)
-scene_to_load = "uid://coc2eb0hcep4g"
-
-[node name="EntitySpawner4" parent="Entities/Spawners" unique_id=1425884201 instance=ExtResource("4_uyhnu")]
-position = Vector2(867, 448)
-scene_to_load = "uid://coc2eb0hcep4g"
-
-[node name="EntitySpawner5" parent="Entities/Spawners" unique_id=886946903 instance=ExtResource("4_uyhnu")]
-position = Vector2(968, 448)
-scene_to_load = "uid://coc2eb0hcep4g"
-delay = 1.5
 
 [node name="Player" type="Node2D" parent="Entities" unique_id=1795455900]
 
 [node name="PlayerSpawn" parent="Entities/Player" unique_id=2126367169 instance=ExtResource("3_i141n")]
-position = Vector2(640, 112)
+position = Vector2(727, 144)
 
 [node name="PlayerCamera" parent="Entities/Player" unique_id=1424985965 instance=ExtResource("4_k6okd")]
-position = Vector2(602, -335)
+position = Vector2(999, -101)
 
 [node name="CameraAreas" type="Node2D" parent="Entities/Player" unique_id=488696332]
 
@@ -108,6 +108,7 @@ metadata/_custom_type_script = "uid://rrivsvtd37ul"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Player/CameraAreas/AscendCameraArea" unique_id=913316700]
 shape = SubResource("RectangleShape2D_w6amo")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="RoomCamera" type="Camera2D" parent="Entities/Player/CameraAreas/AscendCameraArea" unique_id=1164373750]
 offset = Vector2(0, 48)
@@ -124,6 +125,7 @@ metadata/_custom_type_script = "uid://rrivsvtd37ul"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Player/CameraAreas/LeftCameraArea" unique_id=1694247355]
 shape = SubResource("RectangleShape2D_uyhnu")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="RoomCamera" type="Camera2D" parent="Entities/Player/CameraAreas/LeftCameraArea" unique_id=408812155]
 offset = Vector2(0, -48)
@@ -143,8 +145,9 @@ room_camera = NodePath("RoomCamera")
 metadata/_custom_type_script = "uid://rrivsvtd37ul"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Player/CameraAreas/RightCameraArea" unique_id=162756076]
-position = Vector2(0, 40.5)
+position = Vector2(32.5, 40.5)
 shape = SubResource("RectangleShape2D_xno86")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="RoomCamera" type="Camera2D" parent="Entities/Player/CameraAreas/RightCameraArea" unique_id=1479872325]
 zoom = Vector2(1.75, 1.75)

@@ -4,7 +4,7 @@ class_name StateMachine
 @export var initial_state: BaseState
 var active_state: BaseState
 
-func init(player: Player, movement: PlayerMovement) -> void:
+func init(player: Player, movement: MovementComponent) -> void:
 	var states := {}
 	
 	for state: BaseState in get_children():

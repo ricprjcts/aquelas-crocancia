@@ -7,7 +7,7 @@ var state_machine: StateMachine
 var states := {}
 
 var player: Player
-var movement: PlayerMovement
+var movement: MovementComponent
 
 func enter() -> void:
 	pass

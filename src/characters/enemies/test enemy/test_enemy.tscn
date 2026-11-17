@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://c7jjm4da8ixvt" path="res://src/characters/enemies/test enemy/test_enemy.gd" id="1_qyr84"]
 [ext_resource type="Texture2D" uid="uid://c75jrp57x4wfs" path="res://assets/icon.svg" id="2_1pa7o"]
 [ext_resource type="Shader" uid="uid://coluplyeorkar" path="res://src/resources/shaders/blink.gdshader" id="2_upe5w"]
-[ext_resource type="Script" uid="uid://c132ldhrnabpv" path="res://src/scripts/components/hitbox.gd" id="3_7yglh"]
-[ext_resource type="Script" uid="uid://b86uj4qxpmgak" path="res://src/scripts/components/health_component.gd" id="3_quq4u"]
-[ext_resource type="Script" uid="uid://wufyj8h1dgpm" path="res://src/scripts/components/movement_component.gd" id="4_7yglh"]
-[ext_resource type="Script" uid="uid://b03xiaopsllhc" path="res://src/scripts/components/hurtbox.gd" id="4_qyr84"]
-[ext_resource type="Script" uid="uid://bj6oclaekwfl0" path="res://src/scripts/components/sprite_controller.gd" id="6_u21e6"]
+[ext_resource type="Script" uid="uid://c132ldhrnabpv" path="res://src/components/collision/hitbox.gd" id="3_7yglh"]
+[ext_resource type="Script" uid="uid://b86uj4qxpmgak" path="res://src/components/health_component.gd" id="3_quq4u"]
+[ext_resource type="Script" uid="uid://wufyj8h1dgpm" path="res://src/components/movement_component.gd" id="4_7yglh"]
+[ext_resource type="Script" uid="uid://b03xiaopsllhc" path="res://src/components/collision/hurtbox.gd" id="4_qyr84"]
+[ext_resource type="Script" uid="uid://bj6oclaekwfl0" path="res://src/components/controllers/sprite_controller.gd" id="6_u21e6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qyr84"]
 resource_local_to_scene = true

@@ -9,12 +9,19 @@ signal invincibility_started
 signal invincibility_ended
 
 @export var max_health := 5
-var health := 0:
+var health := 0 :
 	set(new_health):
 		health = new_health
 		health_changed.emit(health, max_health)
 	get():
 		return health
+
+var dead := false :
+	set(value):
+		dead = value
+		died.emit()
+	get():
+		return dead
 
 var invincibility := false
 
@@ -26,13 +33,10 @@ func take_damage(amount: int) -> void:
 	health = new_health
 	
 	if health <= 0:
-		died.emit()
+		dead = true
 		return
 	
 	took_damage.emit(amount)
-
-func get_health() -> int:
-	return health
 
 func set_invincibility(duration: float) -> void:
 	if invincibility:
@@ -46,6 +50,3 @@ func set_invincibility(duration: float) -> void:
 		invincibility = false
 		invincibility_ended.emit()
 		)
-
-func get_invincibility() -> bool:
-	return invincibility

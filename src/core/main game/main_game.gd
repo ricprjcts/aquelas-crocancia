@@ -152,7 +152,6 @@ func _init_player(player_scene_uid: String) -> void:
 		return
 	
 	player = player_instance
-	player.main_game = self
 	
 	place_player_at_default_spawn()
 	_set_player_camera()

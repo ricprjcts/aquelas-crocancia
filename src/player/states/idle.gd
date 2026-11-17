@@ -1,7 +1,7 @@
 extends BaseState
 
 func physics_process(delta: float) -> void:
-	player.velocity.x = 0.0
+	player.velocity.x = move_toward(player.velocity.x, 0.0, movement.deceleration * delta)
 	player.velocity.y += movement.gravity * delta
 	player.move_and_slide()
 	
@@ -13,11 +13,11 @@ func physics_process(delta: float) -> void:
 		change_state.emit(states[player.states.jump])
 		return
 	
-	if movement.do_dash():
+	if player.do_dash():
 		change_state.emit(states[player.states.dash])
 		return
 	
-	if movement.do_attack():
+	if player.do_attack():
 		change_state.emit(states[player.states.attack])
 		return
 	

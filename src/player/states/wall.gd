@@ -39,7 +39,7 @@ func physics_process(delta: float) -> void:
 		_leave_wall_default()
 		return
 	
-	if movement.wants_wall_jump():
+	if player.wants_wall_jump():
 		_wall_jump()
 		return
 	
@@ -74,5 +74,5 @@ func _leave_wall(delta: float) -> void:
 func _wall_jump() -> void:
 	player.velocity.x = -wall_jump_velocity if player.is_facing_right() else wall_jump_velocity
 	player.velocity.y = movement.jump_velocity
-	movement.do_wall_jump(wall_jump_duration)
+	player.do_wall_jump(wall_jump_duration)
 	change_state.emit(states[player.states.jump])
