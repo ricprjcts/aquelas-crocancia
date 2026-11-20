@@ -22,8 +22,6 @@ tile_set = ExtResource("2_rr505")
 
 [node name="Objects" type="Node2D" parent="." unique_id=973042764]
 
-[node name="Chests" type="Node2D" parent="Objects" unique_id=190293150]
-
 [node name="Transitions" type="Node2D" parent="." unique_id=1710193056]
 
 [node name="Entities" type="Node2D" parent="." unique_id=885844686]
@@ -36,4 +34,4 @@ tile_set = ExtResource("2_rr505")
 
 [node name="PlayerCamera" parent="Entities/Player" unique_id=1424985965 instance=ExtResource("3_rr505")]
 
-[node name="CameraAreas" type="Node2D" parent="Entities/Player" unique_id=488696332]
+[node name="Rooms" type="Node2D" parent="." unique_id=1113778043]

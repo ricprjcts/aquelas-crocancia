@@ -16,9 +16,7 @@ func change_scene_by_gate(gate: TransitionGate) -> void:
 	if _main_game == null:
 		_main_game = MainGame.current
 	
-	if not _main_game.scene_load_failed.is_connected(_on_scene_load_failed):
-		_main_game.scene_load_failed.connect(_on_scene_load_failed)
-	
+	_main_game.scene_load_failed.connect(_on_scene_load_failed, CONNECT_ONE_SHOT)
 	_main_game.load_scene(gate.destination_scene_uid)
 	
 	going_to = gate.going_to
@@ -45,6 +43,4 @@ func _on_scene_load_failed() -> void:
 		_main_game = MainGame.current
 	
 	_main_game.load_scene(_main_game.initial_scene_uid)
-	if _main_game.scene_load_failed.is_connected(_on_scene_load_failed):
-		_main_game.scene_load_failed.disconnect(_on_scene_load_failed)
 	transitioning = false

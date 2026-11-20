@@ -8,3 +8,9 @@ signal died
 
 var max_health: int
 var health: int
+
+var money: int = 0 :
+	set(value):
+		money = value
+	get():
+		return money

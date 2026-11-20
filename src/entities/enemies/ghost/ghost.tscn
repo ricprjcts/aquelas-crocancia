@@ -1,0 +1,271 @@
+[gd_scene format=3 uid="uid://coc2eb0hcep4g"]
+
+[ext_resource type="Script" uid="uid://drh7l665dl0uo" path="res://src/entities/enemies/ghost/ghost.gd" id="1_pnsl1"]
+[ext_resource type="Shader" uid="uid://coluplyeorkar" path="res://src/resources/shaders/blink.gdshader" id="2_okafd"]
+[ext_resource type="Texture2D" uid="uid://c30tsm0w0nd0k" path="res://assets/characters/ghost/ghost-sprite-sheet.png" id="3_7q43s"]
+[ext_resource type="Script" uid="uid://c132ldhrnabpv" path="res://src/components/area/hitbox.gd" id="4_i5bbj"]
+[ext_resource type="Script" uid="uid://b03xiaopsllhc" path="res://src/components/area/hurtbox.gd" id="5_vjm4p"]
+[ext_resource type="Script" uid="uid://b86uj4qxpmgak" path="res://src/components/node/health_component.gd" id="6_1sujw"]
+[ext_resource type="Script" uid="uid://wufyj8h1dgpm" path="res://src/components/node/movement_component.gd" id="7_e4i7b"]
+[ext_resource type="Script" uid="uid://bj6oclaekwfl0" path="res://src/components/node/sprite_controller.gd" id="8_atdut"]
+[ext_resource type="Script" uid="uid://dukgwr3aru8hh" path="res://src/components/node/hitbox_controller.gd" id="9_t4hoq"]
+[ext_resource type="Script" uid="uid://m5us87hlt3aw" path="res://src/components/node/knockback_component.gd" id="10_bmcc8"]
+[ext_resource type="Script" uid="uid://bvhorhl1nn206" path="res://src/scripts/state_machine/state_machine.gd" id="11_jon7w"]
+[ext_resource type="Script" uid="uid://cm1w3fwgtm88v" path="res://src/scripts/state_machine/state.gd" id="12_81q6m"]
+[ext_resource type="Script" uid="uid://bj2g7wm0j15o6" path="res://src/entities/enemies/ghost/states/wander/idle.gd" id="13_grvxc"]
+[ext_resource type="Script" uid="uid://kpmainp31caw" path="res://src/entities/enemies/ghost/states/wander/move.gd" id="14_ixihy"]
+[ext_resource type="Script" uid="uid://2tukph74juba" path="res://src/entities/enemies/ghost/states/attack.gd" id="15_ya5ou"]
+[ext_resource type="Script" uid="uid://cpr4q51qjjba2" path="res://src/entities/enemies/ghost/states/damage.gd" id="16_doqhu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xfxem"]
+resource_local_to_scene = true
+shader = ExtResource("2_okafd")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sn6hd"]
+size = Vector2(12, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hm3dp"]
+size = Vector2(12, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xfxem"]
+size = Vector2(12, 44)
+
+[sub_resource type="Animation" id="Animation_er1nc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pjmeo"]
+resource_name = "chase"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_4c7nl"]
+resource_name = "idle"
+length = 0.7
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_hm3dp"]
+resource_name = "spawn"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18, 19]
+}
+
+[sub_resource type="Animation" id="Animation_4xpd7"]
+resource_name = "vanish"
+length = 0.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [28, 29, 30, 31, 32, 33, 34]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_er1nc"]
+_data = {
+&"RESET": SubResource("Animation_er1nc"),
+&"chase": SubResource("Animation_pjmeo"),
+&"idle": SubResource("Animation_4c7nl"),
+&"spawn": SubResource("Animation_hm3dp"),
+&"vanish": SubResource("Animation_4xpd7")
+}
+
+[node name="Ghost" type="CharacterBody2D" unique_id=1713620969 node_paths=PackedStringArray("anim", "wall_ray", "ledge_ray", "wander", "attack", "damage", "state_machine", "sprite", "movement", "health", "knockback", "collision", "hurtbox", "hitbox", "sprite_controller", "hitbox_controller")]
+collision_layer = 0
+script = ExtResource("1_pnsl1")
+anim = NodePath("Anim")
+wall_ray = NodePath("Raycasts/WallRay")
+ledge_ray = NodePath("Raycasts/LedgeRay")
+wander = NodePath("GhostSM/Wander")
+attack = NodePath("GhostSM/Attack")
+damage = NodePath("GhostSM/Damage")
+detection_threshold = 90.0
+spawn_time = 0.5
+state_machine = NodePath("GhostSM")
+sprite = NodePath("Sprite")
+start_direction = "Left"
+movement = NodePath("Components/MovementComponent")
+health = NodePath("Components/HealthComponent")
+knockback = NodePath("Components/KnockbackComponent")
+collision = NodePath("CollisionShape2D")
+hurtbox = NodePath("Hitboxes/Hurtbox")
+hitbox = NodePath("Hitboxes/Hitbox")
+sprite_controller = NodePath("Components/SpriteController")
+hitbox_controller = NodePath("Components/HitboxController")
+metadata/_custom_type_script = "uid://cfa2opkiyn84a"
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=2014485987]
+material = SubResource("ShaderMaterial_xfxem")
+position = Vector2(0, -28)
+texture = ExtResource("3_7q43s")
+offset = Vector2(1, 4)
+hframes = 7
+vframes = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=44260390]
+position = Vector2(0, -22)
+shape = SubResource("RectangleShape2D_sn6hd")
+debug_color = Color(1, 1, 0, 0)
+
+[node name="Hitboxes" type="Node2D" parent="." unique_id=1038660921]
+
+[node name="Hurtbox" type="Area2D" parent="Hitboxes" unique_id=177639416 node_paths=PackedStringArray("body", "collision")]
+script = ExtResource("5_vjm4p")
+body = NodePath("../..")
+collision = NodePath("CollisionShape2D")
+damage_iframes_duration = 0.3
+damage_stun = 0.05
+metadata/_custom_type_script = "uid://b03xiaopsllhc"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Hurtbox" unique_id=1626565969]
+position = Vector2(0, -22)
+shape = SubResource("RectangleShape2D_hm3dp")
+debug_color = Color(1, 1, 0, 0)
+
+[node name="Hitbox" type="Area2D" parent="Hitboxes" unique_id=73252311 node_paths=PackedStringArray("body", "collision")]
+script = ExtResource("4_i5bbj")
+body = NodePath("../..")
+collision = NodePath("CollisionShape2D")
+metadata/_custom_type_script = "uid://c132ldhrnabpv"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Hitbox" unique_id=213273706]
+position = Vector2(0, -22)
+shape = SubResource("RectangleShape2D_xfxem")
+debug_color = Color(1, 1, 0, 0)
+
+[node name="Raycasts" type="Node2D" parent="." unique_id=1970900240]
+
+[node name="WallRay" type="RayCast2D" parent="Raycasts" unique_id=123392989]
+position = Vector2(0, -15)
+target_position = Vector2(-16, 0)
+
+[node name="LedgeRay" type="RayCast2D" parent="Raycasts" unique_id=1779770549]
+position = Vector2(-12, -15)
+target_position = Vector2(0, 32)
+
+[node name="Components" type="Node" parent="." unique_id=1139534994]
+
+[node name="HealthComponent" type="Node" parent="Components" unique_id=63910455]
+script = ExtResource("6_1sujw")
+max_health = 4
+metadata/_custom_type_script = "uid://b86uj4qxpmgak"
+
+[node name="MovementComponent" type="Node" parent="Components" unique_id=1636129149 node_paths=PackedStringArray("body")]
+script = ExtResource("7_e4i7b")
+body = NodePath("../..")
+acceleration = 1500.0
+deceleration = 1500.0
+metadata/_custom_type_script = "uid://wufyj8h1dgpm"
+
+[node name="SpriteController" type="Node" parent="Components" unique_id=2090137635 node_paths=PackedStringArray("sprite")]
+script = ExtResource("8_atdut")
+sprite = NodePath("../../Sprite")
+metadata/_custom_type_script = "uid://bj6oclaekwfl0"
+
+[node name="HitboxController" type="Node" parent="Components" unique_id=1053539756]
+script = ExtResource("9_t4hoq")
+metadata/_custom_type_script = "uid://dukgwr3aru8hh"
+
+[node name="KnockbackComponent" type="Node" parent="Components" unique_id=1463445276 node_paths=PackedStringArray("body")]
+script = ExtResource("10_bmcc8")
+body = NodePath("../..")
+metadata/_custom_type_script = "uid://m5us87hlt3aw"
+
+[node name="GhostSM" type="Node" parent="." unique_id=744814431 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("11_jon7w")
+initial_state = NodePath("Wander")
+metadata/_custom_type_script = "uid://bvhorhl1nn206"
+
+[node name="Wander" type="Node" parent="GhostSM" unique_id=125532446 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("12_81q6m")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://cm1w3fwgtm88v"
+
+[node name="Idle" type="Node" parent="GhostSM/Wander" unique_id=1388630134 node_paths=PackedStringArray("move")]
+script = ExtResource("13_grvxc")
+move = NodePath("../Move")
+animation_player = NodePath("../../../Anim")
+animation_name = &"idle"
+metadata/_custom_type_script = "uid://cm1w3fwgtm88v"
+
+[node name="Move" type="Node" parent="GhostSM/Wander" unique_id=755419077 node_paths=PackedStringArray("idle")]
+script = ExtResource("14_ixihy")
+idle = NodePath("../Idle")
+animation_player = NodePath("../../../Anim")
+animation_name = &"chase"
+metadata/_custom_type_script = "uid://cm1w3fwgtm88v"
+
+[node name="Attack" type="Node" parent="GhostSM" unique_id=1745064951 node_paths=PackedStringArray("wander")]
+script = ExtResource("15_ya5ou")
+wander = NodePath("../Wander")
+attack_duration = 0.75
+dash_velocity = 150.0
+dash_deceleration = 100.0
+animation_player = NodePath("../../Anim")
+animation_name = &"chase"
+metadata/_custom_type_script = "uid://cm1w3fwgtm88v"
+
+[node name="Damage" type="Node" parent="GhostSM" unique_id=523505126 node_paths=PackedStringArray("wander")]
+script = ExtResource("16_doqhu")
+wander = NodePath("../Wander")
+metadata/_custom_type_script = "uid://cm1w3fwgtm88v"
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=832878222]
+libraries/ = SubResource("AnimationLibrary_er1nc")
+autoplay = &"spawn"

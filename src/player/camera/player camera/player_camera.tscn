@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dl26cqo1ajko8"]
 
 [ext_resource type="Script" uid="uid://bncapqvo8sel6" path="res://src/player/camera/player camera/player_camera.gd" id="1_a6oue"]
-[ext_resource type="Resource" uid="uid://dmebrj611kdbm" path="res://src/resources/tween/camera_tween.tres" id="2_nluv6"]
+[ext_resource type="Resource" uid="uid://dmebrj611kdbm" path="res://src/resources/custom_resources/tween/camera_tween.tres" id="2_nluv6"]
 
 [node name="PlayerCamera" type="Camera2D" unique_id=1424985965]
 zoom = Vector2(2, 2)
